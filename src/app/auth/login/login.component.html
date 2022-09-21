@@ -1,0 +1,50 @@
+<h1 id="title" class="title">ENDLOS</h1>
+<style>
+  ::ng-deep .navigation .link nb-icon {
+    display: none !important;
+  }
+  .title {
+    background-image: linear-gradient(to right bottom, #d30079, #be0987, #a41b93, #86289c, #6131a1, #4f48b4, #355cc3, #006ece, #0095e7, #00b9f2, #00dbf3, #5ffbf1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <label class="label" for="input-email">Mobile No.:</label>
+    <input nbInput fullWidth name="email" id="input-email" pattern="[0-9]{10}" placeholder="Mobile No."
+      fieldSize="large" autofocus (keydown)="NumberOnly($event)" formControlName="mobilenumber"
+      [status]="loginForm.get('mobilenumber').touched ? (loginForm.get('mobilenumber').invalid  ? 'danger' : 'success') : 'basic'">
+
+    <p *ngIf="loginForm.get('mobilenumber').errors?.required" class="caption status-danger">Mobile No. is required!</p>
+    <p *ngIf="loginForm.get('mobilenumber').errors?.pattern" class="caption status-danger"> Mobile should be the real
+      one!
+    </p>
+  </div>
+
+  <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-password">Password:</label>
+      <!-- <a class="forgot-password caption-2" routerLink="../request-password">Forgot Password?</a> -->
+    </span>
+    <input nbInput fullWidth name="password" [type]="show ? 'text' : 'password'" id="input-password"
+      placeholder="Password" fieldSize="large" formControlName="password"
+      [status]="loginForm.get('password').touched ? (loginForm.get('password').invalid  ? 'danger' : 'success') : 'basic'">
+
+    <p *ngIf="loginForm.get('password').errors?.required && loginForm.get('password').touched"
+      class="caption status-danger">password is required!</p>
+
+  </div>
+
+  <div class="form-control-group accept-group">
+    <nb-checkbox name="rememberMe" (click)="password()">{{show ? 'Hide' : 'Show'}} Password </nb-checkbox>
+  </div>
+
+  <button nbButton fullWidth status="primary" size="large" type="submit"
+    [disabled]="loginForm.get('password').errors || loginForm.get('mobilenumber').errors">
+    Log In
+  </button>
+</form>

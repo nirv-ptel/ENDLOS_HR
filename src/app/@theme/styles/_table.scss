@@ -1,0 +1,75 @@
+@mixin ngx-table() {
+  table tr th {
+  font-family: nb-theme(smart-table-header-font-family);
+  font-weight: nb-theme(smart-table-header-font-weight);
+  line-height: nb-theme(smart-table-header-line-height);
+  color: nb-theme(smart-table-header-fg);
+  }
+
+  table tr td {
+  font-family: nb-theme(smart-table-font-family);
+  font-weight: nb-theme(smart-table-font-weight);
+  line-height: nb-theme(smart-table-line-height);
+  color: nb-theme(smart-table-fg);
+
+  nb-select.appearance-outline.size-tiny .select-button {
+    padding-left: 5px;
+  }
+  }
+
+  table tr th,
+  table tr td {
+  font-size: nb-theme(smart-table-font-size);
+  position: relative;
+  padding: nb-theme(smart-table-padding);
+  border: 1px solid nb-theme(smart-table-separator);
+  vertical-align: middle;
+  }
+
+  thead,
+  tfoot tr {
+  background: nb-theme(smart-table-header-bg);
+  }
+
+  tfoot tr td {
+  padding: 0.75rem 1rem 0.75rem 1rem;
+  }
+
+  tbody tr {
+  &.selected,
+  &:hover {
+  background: nb-theme(smart-table-bg-active) !important;
+  }
+
+  &:nth-child(2n) {
+    background-color: nb-theme(smart-table-bg-even);
+  }
+  }
+
+  .pagination {
+  display: inline-flex !important;
+  margin-bottom: 0;
+  }
+  // overwrite bootstrap styles to follow the theme styles
+  .page-link {
+  font-size: nb-theme(smart-table-font-size);
+  padding: 0.2rem 0.5rem;
+  background-color: nb-theme(smart-table-header-bg);
+  border-color: nb-theme(smart-table-separator);
+  }
+
+  .page-item.disabled .page-link {
+  background-color: nb-theme(smart-table-header-bg);
+  border-color: nb-theme(smart-table-separator);
+  }
+
+  .page-item.active .page-link {
+  background-color: nb-theme(button-filled-primary-background-color);
+  border-color: nb-theme(button-filled-primary-border-color);
+  }
+
+  .page-link:hover {
+  background-color: nb-theme(button-filled-primary-hover-background-color);
+  border-color: nb-theme(button-filled-primary-hover-border-color);
+  }
+  }
