@@ -13,10 +13,6 @@ const routes: Routes = [{
       component: MainCategoryComponent,
     },
     {
-      path: 'sub-category',
-      component: SubCategoryComponent,
-    },
-    {
       path: '**',
       redirectTo: 'main-category',
       pathMatch: 'full',

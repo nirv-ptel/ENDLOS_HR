@@ -21,13 +21,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'layout-outline',
     children: [
       {
-        title: 'Main Category',
+        title: 'Create Category',
         link: '/pages/category/main-category',
       },
-      {
-        title: 'Sub Category',
-        link: '/pages/category/sub-category',
-      },
+    
     ],
   },
   {

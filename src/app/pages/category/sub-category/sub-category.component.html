@@ -1,1 +1,30 @@
-<p>sub-category works!</p>
+<nb-card>
+  <form [formGroup]="SubCategoryForm" (ngSubmit)="onCategoryFormSubmit()">
+    <nb-card>
+      <nb-card-header>Category Name
+        <button type="button" (click)="dismiss()" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="form-group">
+          <label for="subCategoryName" class="label">Sub Category Name</label>
+          <input type="text" nbInput fullWidth id="subCategoryName" placeholder="Enter Sub Category Name"
+            formControlName="subCategoryName" [status]="
+            SubCategoryForm.get('subCategoryName').touched
+                  ? SubCategoryForm.get('subCategoryName').invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              " />
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton status="success" type="submit" [disabled]="SubCategoryForm.get('subCategoryName').invalid">
+          Submit
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</nb-card>

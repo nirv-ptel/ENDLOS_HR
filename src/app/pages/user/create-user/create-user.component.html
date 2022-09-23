@@ -1,1 +1,66 @@
-<p>create-user works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                Create User
+            </nb-card-header>
+            <nb-card-body>
+                <form [formGroup]="UserForm" (ngSubmit)="onUserFormSubmit()">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="name" class="label">User Name</label>
+                                <input type="text" nbInput fullWidth id="name" placeholder="User Name"
+                                    formControlName="username"
+                                    [status]="UserForm.get('username').touched ? UserForm.get('username').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="firstName" class="label">first Name</label>
+                                <input type="text" nbInput fullWidth id="firstName" placeholder="First Name"
+                                    formControlName="firstName"
+                                    [status]="UserForm.get('firstName').touched ? UserForm.get('firstName').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="lastName" class="label">last Name</label>
+                                <input type="text" nbInput fullWidth id="lastName" placeholder="last Name"
+                                    formControlName="lastName"
+                                    [status]="UserForm.get('lastName').touched ? UserForm.get('lastName').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="email" class="label">Email</label>
+                                <input type="text" nbInput fullWidth id="email" placeholder="Email"
+                                    formControlName="email"
+                                    [status]="UserForm.get('email').touched ? UserForm.get('email').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="mobileNumber" class="label">Mobile Number</label>
+                                <input type="text" nbInput fullWidth id="mobileNumber" placeholder="Mobile Number"
+                                    formControlName="mobileNumber"
+                                    [status]="UserForm.get('mobileNumber').touched ? UserForm.get('mobileNumber').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="password" class="label">password</label>
+                                <input type="password" nbInput fullWidth id="password" placeholder="password"
+                                    formControlName="password"
+                                    [status]="UserForm.get('password').touched ? UserForm.get('password').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

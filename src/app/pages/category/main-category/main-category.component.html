@@ -1,1 +1,90 @@
-<p>main-category works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                <div class="float">
+                    <button nbButton status="danger" (click)="CreateCategory(dialog)">Create Main Category</button>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="MainCategorySource">
+                </ng2-smart-table>
+                <!-- 
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" (click)="sort('cid')">ID &nbsp; <i class="fa fa-sort"></i></th>
+              <th scope="col" (click)="sort('categoryName')">Category Name &nbsp; <i class="fa fa-sort"></i></th>
+
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of MainCategorySource | paginate : 
+                              {
+                                itemsPerPage: itemsPerPage,
+                                currentPage: page,
+                                totalItems: totalItems
+                              } | orderBy: key: reverse">
+              <th scope="row"> {{ item.cid}}</th>
+              <td>{{item.categoryName}}</td>
+              <td>
+                <button nbButton (click)="openSubCategoryDetails(item.cid)">Add Sub Category</button>
+                <button nbButton> <i class="fa fa-sort"></i></button>
+              </td>
+              <div>
+            <tr *ngFor="let sub of item.subCategoryList">
+              <th scope="row"> {{ sub.sub_c_id}}</th>
+              <td>{{sub.subCategoryName}}</td>
+            </tr>
+  </div>
+            </tr>
+
+          </tbody>
+        </table>
+        <pagination-controls class="pagi" (pageChange)="ViewMainCategoryPage((page = $event))"></pagination-controls>
+        <div class="float">
+          <nb-select class="form-select" [selected]="5" [(ngModel)]="itemsPerPage" (ngModelChange)="refreshCountries()">
+            <nb-option [value]="5">5 items per page</nb-option>
+            <nb-option [value]="10">10 items per page</nb-option>
+            <nb-option [value]="25">25 items per page</nb-option>
+          </nb-select>
+        </div> -->
+
+
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<ng-template #dialog let-ref="dialogRef">
+    <form [formGroup]="MainCategoryForm" (ngSubmit)="onCategoryFormSubmit()">
+        <nb-card>
+            <nb-card-header>Category Name
+                <button type="button" (click)="NbDialogRef.close()" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="form-group">
+                    <label for="categoryName" class="label">Category Name</label>
+                    <input type="text" nbInput fullWidth id="categoryName" placeholder="Enter Category Name"
+                        formControlName="categoryName" [status]="
+            MainCategoryForm.get('categoryName').touched
+                  ? MainCategoryForm.get('categoryName').invalid
+                    ? 'danger'
+                    : 'success'
+                  : 'basic'
+              " />
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+                <button nbButton status="success" type="submit"
+                    [disabled]="MainCategoryForm.get('categoryName').invalid">
+                    Submit
+                </button>
+            </nb-card-footer>
+        </nb-card>
+    </form>
+</ng-template>

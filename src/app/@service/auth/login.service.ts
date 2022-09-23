@@ -16,7 +16,7 @@ export class LoginService {
       this.user = this.getUser(this.getToken());
     }
   }
-  url = `${apiUrl.url}/deltaplc/user`;
+  url = `${apiUrl.url}/endlos/user`;
 
   login(user: any): Observable<any> {
     return this.http.post(`${this.url}/signin`, user);
