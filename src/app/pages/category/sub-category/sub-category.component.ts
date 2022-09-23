@@ -68,7 +68,7 @@ export class SubCategoryComponent implements OnInit {
         });
 
         this.SubCategoryForm = this.fb.group({
-            subCategoryName: ['', Validators.required],
+            categoryName: ['', Validators.required],
             categoryData: this.fb.group({
                 cid: [this.MainCtegoryID, Validators.required]
             })
@@ -88,7 +88,7 @@ export class SubCategoryComponent implements OnInit {
         this._mainCategory.CreateSubCategory(this.SubCategoryForm.value).subscribe((data: any) => {
             this.SubCategoryForm.reset();
             console.warn(data);
-            this.allAlert('success', `${data.Data.subCategoryName} Created !`, 'Successfully Create Category');
+            this.allAlert('success', `${data.Data.categoryName} Created !`, 'Successfully Create Category');
             this.ref.close();
             this.ngOnInit();
         },

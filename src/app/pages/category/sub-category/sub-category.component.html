@@ -9,11 +9,11 @@
       <nb-card-body>
 
         <div class="form-group">
-          <label for="subCategoryName" class="label">Sub Category Name</label>
-          <input type="text" nbInput fullWidth id="subCategoryName" placeholder="Enter Sub Category Name"
-            formControlName="subCategoryName" [status]="
-            SubCategoryForm.get('subCategoryName').touched
-                  ? SubCategoryForm.get('subCategoryName').invalid
+          <label for="categoryName" class="label">Sub Category Name</label>
+          <input type="text" nbInput fullWidth id="categoryName" placeholder="Enter Sub Category Name"
+            formControlName="categoryName" [status]="
+            SubCategoryForm.get('categoryName').touched
+                  ? SubCategoryForm.get('categoryName').invalid
                     ? 'danger'
                     : 'success'
                   : 'basic'
@@ -21,7 +21,7 @@
         </div>
       </nb-card-body>
       <nb-card-footer>
-        <button nbButton status="success" type="submit" [disabled]="SubCategoryForm.get('subCategoryName').invalid">
+        <button nbButton status="success" type="submit" [disabled]="SubCategoryForm.get('categoryName').invalid">
           Submit
         </button>
       </nb-card-footer>
