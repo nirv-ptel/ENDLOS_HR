@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
 import { LoginService } from '../../../@service/auth/login.service';
+import { CategoryService } from '../../../@service/category/category.service';
+import { UserService } from '../../../@service/user/user.service';
 
 @Component({
   selector: 'ngx-create-user',
@@ -15,10 +18,15 @@ export class CreateUserComponent implements OnInit {
   // maintanance: boolean = false;
   // store: boolean = false;
   // gm: boolean = false;
-  
+
+  MainCategorySource: [];
+  SubCategorySource: [];
   constructor(
     private fb: FormBuilder,
+    private toastrService: NbToastrService,
     private _auth: LoginService,
+    private _mainCategory: CategoryService,
+    private _user: UserService
   ) { }
 
   ngOnInit(): void {
@@ -35,18 +43,83 @@ export class CreateUserComponent implements OnInit {
       password: [null],
       mobileNumber: [null],
       aadharNumber: [null],
-      city: [null],
-      currentAddress: [null],
-      permanentAddress: [null],
+      salary: [null],
+      salaryType: [null],
       bankName: [null],
       accountNumber: [null],
       ifscCode: [null],
+      startDate: [null],
+      leaveBalance: [null],
+      categorys: this.fb.group({
+        cid: [null, Validators.required]
+      }),
+      subCategorys: this.fb.group({
+        sub_c_id: [null, Validators.required]
+      }),
+      userAddressList: this.fb.array([this.AddUserAddress()])
     })
 
+    this._mainCategory.ViewMainCategory().subscribe((data: any) => {
+      console.warn(data.Data);
+      this.MainCategorySource = data.Data;
+
+    })
+  }
+
+  AddressAdd() {
+    this.AddAddressGet.push(this.AddUserAddress());
+  }
+  get AddAddressGet() {
+    return this.UserForm.get('userAddressList') as FormArray;
+  }
+  AddAddressRemove(i: number) {
+    if (i >= 1) {
+      this.AddAddressGet.removeAt(i);
+    }
+  }
+  AddUserAddress() {
+    return this.fb.group({
+      addressType: [null, Validators.required],
+      locality: [null],
+      city: [null],
+      zipCode: [null],
+      address: [null],
+      state: [null]
+    });
+  }
+
+  SubCategoryGet(event) {
+    this.SubCategorySource = null;
+    this._mainCategory.MainCategoryByID(event).subscribe((data: any) => {
+      this.SubCategorySource = data.Data.subCategoryList;
+    })
   }
 
   onUserFormSubmit() {
+    console.warn(this.UserForm.value);
+    this._user.CreateUser(this.UserForm.value).subscribe((data: any) => {
+      console.warn(data);
+      this.UserForm.reset();
+      this.allAlert('success', `${data.username} Created !`, 'Successfully Created User');
+    },
+      (error: any) => {
+        this.allAlert('danger', `Not Created !`, `something wrong`);
+      })
+  }
 
+  allAlert(alertMsg, headMsg, msg) {
+    const config = {
+      status: alertMsg,
+      destroyByClick: true,
+      duration: 3000,
+      hasIcon: true,
+      position: NbGlobalPhysicalPosition.BOTTOM_RIGHT,
+      preventDuplicates: false,
+    };
+    this.toastrService.show(
+      `${msg}`,
+      `${headMsg}`,
+      config);
   }
 
 }

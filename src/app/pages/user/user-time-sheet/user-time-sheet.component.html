@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                <a (click)="backClicked()"><i class="icon nb-arrow-thin-left"></i></a>
+            </nb-card-header>
+        </nb-card>
+    </div>
+</div>
+
+
+<nb-card>
+    <nb-card-header>
+        {{this.UserDetailsName.Username}}
+    </nb-card-header>
+    <nb-card-body>
+        <!-- <input nbInput type="month" /> -->
+
+        <form [formGroup]="UserTimeForm" (ngSubmit)="onUserTimeFormSubmit()">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="firstName" class="label">Select Month</label>
+                    <input type="month" nbInput [max]="getToday()" [min]="getMin()" (change)="demo($event.target.value)"
+                        fullWidth id="firstName" placeholder="First Name" formControlName="month" />
+                </div>
+            </div>
+            <div formArrayName="datas">
+                <div *ngFor="let party of AddTimeGet.controls; let i = index">
+                    <div class="row" [formGroupName]="i">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="date-{{i}}" class="label">date</label>
+                                <input type="text" nbInput fullWidth id="date-{{i}}" placeholder="date"
+                                    formControlName="date" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="inTime-{{i}}" class="label">inTime</label>
+                                <input type="time" nbInput fullWidth id="inTime-{{i}}" placeholder="inTime"
+                                    formControlName="inTime" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="exitTime-{{i}}" class="label">exitTime</label>
+                                <input type="time" nbInput fullWidth id="exitTime-{{i}}" placeholder="exitTime"
+                                    formControlName="exitTime" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button nbButton status="success" [disabled]="UserTimeForm.invalid" type="submit">Submit</button>
+        </form>
+
+    </nb-card-body>
+</nb-card>

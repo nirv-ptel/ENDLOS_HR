@@ -1,1 +1,49 @@
-<p>view-user works!</p>
+<nb-card>
+    <nb-card-body>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" (click)="sort('cid')">ID &nbsp; <i class="fa fa-sort"></i></th>
+                    <th scope="col" (click)="sort('username')">username &nbsp; <i class="fa fa-sort"></i></th>
+                    <th scope="col" (click)="sort('categorys')">Main Category &nbsp; <i class="fa fa-sort"></i></th>
+                    <th scope="col" (click)="sort('username')">Sub Category &nbsp; <i class="fa fa-sort"></i></th>
+                    <th scope="col" (click)="sort('leaveBalance')">leaveBalance &nbsp; <i class="fa fa-sort"></i></th>
+                    <th scope="col" (click)="sort('username')">Present Day &nbsp; <i class="fa fa-sort"></i></th>
+                    <th scope="col" (click)="sort('username')">Salary &nbsp; <i class="fa fa-sort"></i></th>
+
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of UserSource | paginate : 
+                        {
+                          itemsPerPage: itemsPerPage,
+                          currentPage: page,
+                          totalItems: totalItems
+                        } | orderBy: key: reverse">
+                    <th scope="row"> {{ item.userId}}</th>
+                    <td>{{item.username}}</td>
+                    <td>{{item.categorys == null ? "-" : item.categorys.categoryName}}</td>
+                    <td>{{item.subCategorys == null ? "-" : item.subCategorys.categoryName}}</td>
+                    <td>{{item.leaveBalance == null ? "-" : item.leaveBalance}}</td>
+                    <td></td>
+                    <td>{{item.salary == null ? "-" : item.salary}}</td>
+                    <td>
+                        <i class="fa-solid fa-eye" title="View" (click)="openUsetTimeDetails(item.userId)"></i>
+                        <i class="fa-solid fa-pen" title="Edit"></i>
+                        <i class="fa-solid fa-trash" title="Delete"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls class="pagi" (pageChange)="ViewMainUserPage((page = $event))"></pagination-controls>
+        <div class="float">
+            <nb-select class="form-select" [selected]="5" [(ngModel)]="itemsPerPage"
+                (ngModelChange)="refreshCountries()">
+                <nb-option [value]="5">5 items per page</nb-option>
+                <nb-option [value]="10">10 items per page</nb-option>
+                <nb-option [value]="25">25 items per page</nb-option>
+            </nb-select>
+        </div>
+    </nb-card-body>
+</nb-card>

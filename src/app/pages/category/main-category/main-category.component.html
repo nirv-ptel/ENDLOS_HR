@@ -1,15 +1,15 @@
 <div class="row">
-    <div class="col-md-12">
-        <nb-card>
-            <nb-card-header>
-                <div class="float">
-                    <button nbButton status="danger" (click)="CreateCategory(dialog)">Create Main Category</button>
-                </div>
-            </nb-card-header>
-            <nb-card-body>
-                <!-- <ng2-smart-table [settings]="settings" [source]="MainCategorySource">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        <div class="float">
+          <button nbButton status="danger" (click)="CreateCategory(dialog)">Create Main Category</button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <!-- <ng2-smart-table [settings]="settings" [source]="MainCategorySource">
                 </ng2-smart-table> -->
-               
+
         <table class="table">
           <thead>
             <tr>
@@ -38,53 +38,87 @@
               <td>{{sub.categoryName}}</td>
             </tr>
   </div>
-            </tr>
+  </tr>
 
-          </tbody>
-        </table>
-        <pagination-controls class="pagi" (pageChange)="ViewMainCategoryPage((page = $event))"></pagination-controls>
-        <div class="float">
-          <nb-select class="form-select" [selected]="5" [(ngModel)]="itemsPerPage" (ngModelChange)="refreshCountries()">
-            <nb-option [value]="5">5 items per page</nb-option>
-            <nb-option [value]="10">10 items per page</nb-option>
-            <nb-option [value]="25">25 items per page</nb-option>
-          </nb-select>
-        </div>
+  </tbody>
+  </table>
+  <pagination-controls class="pagi" (pageChange)="ViewMainCategoryPage((page = $event))"></pagination-controls>
+  <div class="float">
+    <nb-select class="form-select" [selected]="5" [(ngModel)]="itemsPerPage" (ngModelChange)="refreshCountries()">
+      <nb-option [value]="5">5 items per page</nb-option>
+      <nb-option [value]="10">10 items per page</nb-option>
+      <nb-option [value]="25">25 items per page</nb-option>
+    </nb-select>
+  </div> 
 
+  <!-- <table mat-table [dataSource]="dataSource" class="table">
+    <ng-container matColumnDef="categoryName">
+      <th mat-header-cell *matHeaderCellDef>
+        <span [style.paddingLeft.px]="40"> Category Name </span>
+      </th>
+      <td mat-cell *matCellDef="let data">
+        <button
+          mat-icon-button
+          [style.visibility]="!data.expandable ? 'hidden' : ''"
+          [style.marginLeft.px]="data.level * 32"
+          (click)="treeControl.toggle(data)"
+        >
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(data) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        {{data.categoryName}}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let data"><button nbButton (click)="demo(data)">submit</button></td>
+    </ng-container> 
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table> -->
 
-
-            </nb-card-body>
-        </nb-card>
-    </div>
+  </nb-card-body>
+  </nb-card>
+</div>
+<div class="col-md-12">
+  <nb-card>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="MainCategorySource">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</div>
 </div>
 
 <ng-template #dialog let-ref="dialogRef">
-    <form [formGroup]="MainCategoryForm" (ngSubmit)="onCategoryFormSubmit()">
-        <nb-card>
-            <nb-card-header>Category Name
-                <button type="button" (click)="NbDialogRef.close()" class="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </nb-card-header>
-            <nb-card-body>
-                <div class="form-group">
-                    <label for="categoryName" class="label">Category Name</label>
-                    <input type="text" nbInput fullWidth id="categoryName" placeholder="Enter Category Name"
-                        formControlName="categoryName" [status]="
+  <form [formGroup]="MainCategoryForm" (ngSubmit)="onCategoryFormSubmit()">
+    <nb-card>
+      <nb-card-header>Category Name
+        <button type="button" (click)="NbDialogRef.close()" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="form-group">
+          <label for="categoryName" class="label">Category Name</label>
+          <input type="text" nbInput fullWidth id="categoryName" placeholder="Enter Category Name"
+            formControlName="categoryName" [status]="
             MainCategoryForm.get('categoryName').touched
                   ? MainCategoryForm.get('categoryName').invalid
                     ? 'danger'
                     : 'success'
                   : 'basic'
               " />
-                </div>
-            </nb-card-body>
-            <nb-card-footer>
-                <button nbButton status="success" type="submit"
-                    [disabled]="MainCategoryForm.get('categoryName').invalid">
-                    Submit
-                </button>
-            </nb-card-footer>
-        </nb-card>
-    </form>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton status="success" type="submit" [disabled]="MainCategoryForm.get('categoryName').invalid">
+          Submit
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
 </ng-template>

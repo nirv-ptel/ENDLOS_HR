@@ -17,7 +17,7 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group">
-                                <label for="firstName" class="label">first Name</label>
+                                <label for="firstName" class="label">First Name</label>
                                 <input type="text" nbInput fullWidth id="firstName" placeholder="First Name"
                                     formControlName="firstName"
                                     [status]="UserForm.get('firstName').touched ? UserForm.get('firstName').invalid ? 'danger' : 'success' : 'basic'" />
@@ -25,8 +25,8 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group">
-                                <label for="lastName" class="label">last Name</label>
-                                <input type="text" nbInput fullWidth id="lastName" placeholder="last Name"
+                                <label for="lastName" class="label">Last Name</label>
+                                <input type="text" nbInput fullWidth id="lastName" placeholder="Last Name"
                                     formControlName="lastName"
                                     [status]="UserForm.get('lastName').touched ? UserForm.get('lastName').invalid ? 'danger' : 'success' : 'basic'" />
                             </div>
@@ -59,6 +59,164 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="aadharNumber" class="label">Aadhar Number</label>
+                                <input type="text" nbInput fullWidth id="aadharNumber" placeholder="Aadhar Number"
+                                    formControlName="aadharNumber"
+                                    [status]="UserForm.get('aadharNumber').touched ? UserForm.get('aadharNumber').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="salary" class="label">Salary</label>
+                                <input type="text" nbInput fullWidth id="salary" placeholder="Salary"
+                                    formControlName="salary"
+                                    [status]="UserForm.get('salary').touched ? UserForm.get('salary').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="salaryType" class="label">salaryType</label>
+                                <nb-select placeholder="Select Type" id="salaryType" fullWidth formControlName="salaryType">
+                                    <nb-option  value="DAILY"> DAILY</nb-option>
+                                    <nb-option  value="MONTHLY"> MONTHLY</nb-option>
+                                    <nb-option  value="YEARLY"> YEARLY</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group" formGroupName="categorys">
+                                <label for="cid" class="label">Select Main Category</label>
+                                <nb-select placeholder="Select Category" id="cid" fullWidth formControlName="cid"
+                                    (ngModelChange)="SubCategoryGet($event)">
+                                    <nb-option *ngFor="let item of MainCategorySource" value="{{item.cid}}">
+                                        {{item.categoryName}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group" formGroupName="subCategorys">
+                                <label for="sub_c_id" class="label">Select Sub Category</label>
+                                <nb-select placeholder="Select Sub Category" id="sub_c_id" fullWidth
+                                    formControlName="sub_c_id">
+                                    <nb-option *ngFor="let item of SubCategorySource" value="{{item.sub_c_id}}">
+                                        {{item.categoryName}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="startDate" class="label">Start Date</label>
+                                <input type="date" nbInput fullWidth id="startDate" placeholder="Start Date"
+                                    formControlName="startDate"
+                                    [status]="UserForm.get('startDate').touched ? UserForm.get('startDate').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4>Bank Details</h4>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="bankName" class="label">Bank Name</label>
+                                <input type="text" nbInput fullWidth id="bankName" placeholder="Bank Name"
+                                    formControlName="bankName"
+                                    [status]="UserForm.get('bankName').touched ? UserForm.get('bankName').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="accountNumber" class="label">Account Number</label>
+                                <input type="text" nbInput fullWidth id="accountNumber" placeholder="Account Number"
+                                    formControlName="accountNumber"
+                                    [status]="UserForm.get('accountNumber').touched ? UserForm.get('accountNumber').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="ifscCode" class="label">IFSC Code</label>
+                                <input type="text" nbInput fullWidth id="ifscCode" placeholder="IFSC Code"
+                                    formControlName="ifscCode"
+                                    [status]="UserForm.get('ifscCode').touched ? UserForm.get('ifscCode').invalid ? 'danger' : 'success' : 'basic'" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4>Address</h4>
+                    <div formArrayName="userAddressList">
+                        <div *ngFor="let party of AddAddressGet.controls; let i = index">
+                            <div class="row" [formGroupName]="i">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="addressType-{{i}}" class="label">Address Type</label>
+                                        <nb-select placeholder="Select Address Type" id="addressType-{{i}}" fullWidth
+                                            formControlName="addressType">
+                                            <nb-option value="CURRENT">CURRENT</nb-option>
+                                            <nb-option value="PERMANENT">PERMANENT</nb-option>
+                                        </nb-select>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="locality-{{i}}" class="label">Locality</label>
+                                        <input type="text" nbInput fullWidth id="locality-{{i}}" placeholder="Locality"
+                                            formControlName="locality" />
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="city-{{i}}" class="label">City</label>
+                                        <input type="text" nbInput fullWidth id="city-{{i}}" placeholder="City"
+                                            formControlName="city" />
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="address-{{i}}" class="label">Address</label>
+                                        <input type="text" nbInput fullWidth id="address-{{i}}" placeholder="Address"
+                                            formControlName="address" />
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="state-{{i}}" class="label">State</label>
+                                        <input type="text" nbInput fullWidth id="state-{{i}}" placeholder="State"
+                                            formControlName="state" />
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="zipCode-{{i}}" class="label">Pin Code</label>
+                                        <input type="text" nbInput fullWidth id="zipCode-{{i}}" placeholder="Pin Code"
+                                            formControlName="zipCode" />
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-2">
+                                    <button nbButton *ngIf="i>=1" status="danger" class="mt-20"
+                                        (click)="AddAddressRemove(i)">
+                                        <nb-icon icon="trash-2-outline"></nb-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" nbButton status="success" class="mr-10" (click)="AddressAdd()">
+                        <nb-icon icon="plus-square-outline"></nb-icon>
+                    </button>
+                    <button nbButton status="success" [disabled]="UserForm.invalid" type="submit">Submit</button>
                 </form>
             </nb-card-body>
         </nb-card>

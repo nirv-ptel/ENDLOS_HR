@@ -7,14 +7,15 @@ import { SubCategoryComponent } from '../sub-category/sub-category.component';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 
-interface Category {
-    name: string;
-    children?: Category[];
-}
-
-interface SubCategory {
-    name: number;
-}
+interface FoodNode {
+    categoryName: string;
+    subCategoryList?: FoodNode[];
+  }
+  interface ExampleFlatNode {
+    expandable: boolean;
+    categoryName: string;
+    level: number;
+  }
 
 @Component({
     selector: 'ngx-main-category',
@@ -22,6 +23,30 @@ interface SubCategory {
     styleUrls: ['./main-category.component.scss']
 })
 export class MainCategoryComponent implements OnInit {
+    displayedColumns: string[] = ['categoryName', 'action'];
+
+  private transformer = (node: FoodNode, level: number) => {
+    return {
+      expandable: !!node.subCategoryList && node.subCategoryList.length > 0,
+      categoryName: node.categoryName,
+      level: level,
+    };
+  };
+
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+    (node) => node.level,
+    (node) => node.expandable
+  );
+
+  treeFlattener = new MatTreeFlattener(
+    this.transformer,
+    (node) => node.level,
+    (node) => node.expandable,
+    (node) => node.subCategoryList
+  );
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
 
     MainCategoryForm: FormGroup;
     FilterForm: FormGroup;
@@ -73,6 +98,8 @@ export class MainCategoryComponent implements OnInit {
         })
 
     }
+
+    hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
     AddFilterForm() {
         this.FilterForm.addControl('filters', this.fb.array([
@@ -134,11 +161,17 @@ export class MainCategoryComponent implements OnInit {
         this.FilterForm.get('page').setValue(pages - 1);
         this.FilterForm.get('size').setValue(this.itemsPerPage);
         this._mainCategory.ViewMainCategoryWithFilter(this.FilterForm.value).subscribe((data: any) => {
-            console.warn(data.Data.content);
+            
             this.MainCategorySource = data.Data.content;
+            this.dataSource.data = data.Data.content;
+            console.warn(this.dataSource);
             this.page = pages;
             this.totalItems = data.Data.totalElements;
         })
+    }
+
+    demo(event) {
+        console.warn(event);
     }
 
     allAlert(alertMsg, headMsg, msg) {

@@ -21,11 +21,14 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 import { MatTreeModule } from '@angular/material/tree';
+import {MatTableModule} from '@angular/material/table';
+
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    MatTableModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,

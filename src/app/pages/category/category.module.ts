@@ -11,6 +11,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { MatTreeModule } from '@angular/material/tree';
     CommonModule,
     MatTreeModule,
     Ng2OrderModule,
+    MatTableModule,
     Ng2SmartTableModule,
     NgxPaginationModule,
     NbCardModule,

@@ -13,6 +13,22 @@ export class UserService {
   url = `${apiUrl.url}/endlos`;
 
   ViewUserProfile(Uid:any): Observable<any> {
-    return this.http.get(`${this.url}/user/${Uid}`)
+    return this.http.get(`${this.url}/user/${Uid}`);
+  }
+
+  CreateUser(user: any): Observable<any> {
+    return this.http.post(`${this.url}/user/dummy/signup`, user);
+  }
+
+  ViewUser(Filter: any): Observable<any> {
+    return this.http.post(`${this.url}/user/user/filter`, Filter);
+  }
+
+  UserTime(time: any): Observable<any> {
+    return this.http.post(`${this.url}/timing`, time);
+  }
+
+  UpdateUserTime(Tid: number, time: any): Observable<any> {
+    return this.http.patch(`${this.url}/timing/${Tid}`, time);
   }
 }
