@@ -37,4 +37,8 @@ export class CategoryService {
   ViewSubCategoryWithFilter(Filter: any): Observable<any> {
     return this.http.post(`${this.url}/subCategory/filter`,Filter);
   }
+
+  CreateSubCategoryDetail(categoryDetail:any): Observable<any> {
+    return this.http.post(`${this.url}/subcategoryDetails`, categoryDetail);
+  }
 }

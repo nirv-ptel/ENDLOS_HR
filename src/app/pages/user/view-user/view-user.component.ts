@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
@@ -15,6 +15,8 @@ import { UserTimeSheetComponent } from '../user-time-sheet/user-time-sheet.compo
 export class ViewUserComponent implements OnInit {
 
   admin: boolean = false;
+  leaveEdit: boolean = false;
+  leaveEditUser = null;
   FilterForm: FormGroup;
   UserSource: any = [];
   page: number = 1;
@@ -38,60 +40,66 @@ export class ViewUserComponent implements OnInit {
   ngOnInit(): void {
     let role = this._auth.user.roles.find((x => x));
     if (role == 'ROLE_ADMIN') {
-        this.admin = true;
+      this.admin = true;
     }
 
     this.FilterForm = this.fb.group({
       page: [null],
       size: [null]
-  })
-  this.ViewMainUserPage(1);
+    })
+    this.ViewMainUserPage(1);
   }
+
+  btnClick(event) {
+    this.leaveEditUser = event;
+    // this.leaveEdit = true;
+  }
+
 
   AddFilterForm() {
     this.FilterForm.addControl('filters', this.fb.array([
-        this.fb.group({
-            key: [null],
-            operator: [null],
-            field_type: [null],
-            value: [null],
-            value_to: [null]
-        })
+      this.fb.group({
+        key: [null],
+        operator: [null],
+        field_type: [null],
+        value: [null],
+        value_to: [null]
+      })
     ]))
-}
+  }
 
   ViewMainUserPage(pages: number) {
     this.FilterForm.get('page').setValue(pages - 1);
     this.FilterForm.get('size').setValue(this.itemsPerPage);
     this._user.ViewUser(this.FilterForm.value).subscribe((data: any) => {
-        
-        this.UserSource = data.content;
-        this.page = pages;
-        this.totalItems = data.totalElements;
+
+      this.UserSource = data.content;
+      this.page = pages;
+      this.totalItems = data.totalElements;
     })
-}
+  }
 
-sort(key) {
-  this.key = key;
-  this.reverse = !this.reverse;
-}
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 
-refreshCountries() {
-  this.ViewMainUserPage(1);
-}
-openUsetTimeDetails(event) {
-  this._router.navigateByUrl(`pages/user/one-user/${event}`);
-  // this.NbDialogRef = this.dialogService.open(
-  //   UserTimeSheetComponent,
-  //   {
-  //     context: {
-  //       UserId: event
-  //     },
-  //     closeOnBackdropClick: false,
-  //   }).onClose.subscribe((data) => {
-  //     this.ngOnInit();
-  //   }
-  //   )
-}
+  refreshCountries() {
+    this.ViewMainUserPage(1);
+  }
+  openUsetTimeDetails(event) {
+    this._router.navigateByUrl(`pages/user/one-user/${event}`);
+    // this.NbDialogRef = this.dialogService.open(
+    //   UserTimeSheetComponent,
+    //   {
+    //     context: {
+    //       UserId: event
+    //     },
+    //     closeOnBackdropClick: false,
+    //   }).onClose.subscribe((data) => {
+    //     this.ngOnInit();
+    //   }
+    //   )
+  }
 
 }

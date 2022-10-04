@@ -31,4 +31,8 @@ export class UserService {
   UpdateUserTime(Tid: number, time: any): Observable<any> {
     return this.http.patch(`${this.url}/timing/${Tid}`, time);
   }
+
+  CreateSalary(salary: any): Observable<any> {
+    return this.http.post(`${this.url}/salary`, salary);
+  }
 }

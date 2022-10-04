@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <label for="firstName" class="label">First Name</label>
                                 <input type="text" nbInput fullWidth id="firstName" placeholder="First Name"
-                                    formControlName="firstName"
+                                    formControlName="firstName" (keydown)="StringOnly($event)"
                                     [status]="UserForm.get('firstName').touched ? UserForm.get('firstName').invalid ? 'danger' : 'success' : 'basic'" />
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 <label for="lastName" class="label">Last Name</label>
                                 <input type="text" nbInput fullWidth id="lastName" placeholder="Last Name"
-                                    formControlName="lastName"
+                                    formControlName="lastName" (keydown)="StringOnly($event)"
                                     [status]="UserForm.get('lastName').touched ? UserForm.get('lastName').invalid ? 'danger' : 'success' : 'basic'" />
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 <label for="mobileNumber" class="label">Mobile Number</label>
                                 <input type="text" nbInput fullWidth id="mobileNumber" placeholder="Mobile Number"
-                                    formControlName="mobileNumber"
+                                    formControlName="mobileNumber" (keydown)="NumberOnly($event)"
                                     [status]="UserForm.get('mobileNumber').touched ? UserForm.get('mobileNumber').invalid ? 'danger' : 'success' : 'basic'" />
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 <label for="aadharNumber" class="label">Aadhar Number</label>
                                 <input type="text" nbInput fullWidth id="aadharNumber" placeholder="Aadhar Number"
-                                    formControlName="aadharNumber"
+                                    formControlName="aadharNumber" (keydown)="NumberOnly($event)"
                                     [status]="UserForm.get('aadharNumber').touched ? UserForm.get('aadharNumber').invalid ? 'danger' : 'success' : 'basic'" />
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                             <div class="form-group">
                                 <label for="salary" class="label">Salary</label>
                                 <input type="text" nbInput fullWidth id="salary" placeholder="Salary"
-                                    formControlName="salary"
+                                    formControlName="salary" (keydown)="NumberOnly($event)"
                                     [status]="UserForm.get('salary').touched ? UserForm.get('salary').invalid ? 'danger' : 'success' : 'basic'" />
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                             <div class="form-group">
                                 <label for="accountNumber" class="label">Account Number</label>
                                 <input type="text" nbInput fullWidth id="accountNumber" placeholder="Account Number"
-                                    formControlName="accountNumber"
+                                    formControlName="accountNumber" (keydown)="NumberOnly($event)"
                                     [status]="UserForm.get('accountNumber').touched ? UserForm.get('accountNumber').invalid ? 'danger' : 'success' : 'basic'" />
                             </div>
                         </div>
@@ -172,13 +172,7 @@
                                             formControlName="locality" />
                                     </div>
                                 </div>
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label for="city-{{i}}" class="label">City</label>
-                                        <input type="text" nbInput fullWidth id="city-{{i}}" placeholder="City"
-                                            formControlName="city" />
-                                    </div>
-                                </div>
+                               
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="address-{{i}}" class="label">Address</label>
@@ -188,9 +182,16 @@
                                 </div>
                                 <div class="col-2">
                                     <div class="form-group">
+                                        <label for="city-{{i}}" class="label">City</label>
+                                        <input type="text" nbInput fullWidth id="city-{{i}}" placeholder="City"
+                                            formControlName="city" (keydown)="StringOnly($event)"/>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
                                         <label for="state-{{i}}" class="label">State</label>
                                         <input type="text" nbInput fullWidth id="state-{{i}}" placeholder="State"
-                                            formControlName="state" />
+                                            formControlName="state" (keydown)="StringOnly($event)"/>
                                     </div>
                                 </div>
 
@@ -198,7 +199,7 @@
                                     <div class="form-group">
                                         <label for="zipCode-{{i}}" class="label">Pin Code</label>
                                         <input type="text" nbInput fullWidth id="zipCode-{{i}}" placeholder="Pin Code"
-                                            formControlName="zipCode" />
+                                            formControlName="zipCode"  (keydown)="NumberOnly($event)"/>
                                     </div>
                                 </div>
 

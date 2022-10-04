@@ -6,3 +6,7 @@ nb-card-header a {
   font-size: 3em;
   text-decoration: none;
 }
+
+:host ::ng-deep input:disabled {
+  color: black;
+}

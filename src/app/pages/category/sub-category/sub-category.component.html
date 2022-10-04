@@ -1,7 +1,7 @@
 <nb-card>
   <form [formGroup]="SubCategoryForm" (ngSubmit)="onCategoryFormSubmit()">
     <nb-card>
-      <nb-card-header>Category Name
+      <nb-card-header>{{MainCategoryDetails.MainName}}
         <button type="button" (click)="dismiss()" class="close" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
